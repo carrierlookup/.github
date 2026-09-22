@@ -2,18 +2,23 @@
 
 **Original carrier, line type and allocation lookups.**
 
-Look up the carrier a phone number was originally allocated to, with line type, country and allocation region, in the same HTTP response. Up to 100 numbers per synchronous request.
+Look up the carrier a phone number was originally allocated to, with line type, country and allocation region, in the same HTTP response. Up to 100 numbers per synchronous request. Whole lists go through the asynchronous bulk API instead.
 
 [**Website**](https://carrierlookup.online) · [**API documentation**](https://carrierlookup.online/api-docs) · [**Pricing**](https://carrierlookup.online/pricing) · [**Get an API key**](https://carrierlookup.online/register)
 
 ### Official API example repositories
 
-| Repository | Product code | Contents |
-|---|---|---|
-| **[Original Carrier Lookup](https://github.com/carrierlookup/phone-carrier-lookup-api)** | `carrier` | OpenAPI contract, `product.json`, `llms.txt`, examples in 7 languages |
-| [carrierlookup-resources](https://github.com/carrierlookup/carrierlookup-resources) | — | Technical notes, guides and announcements |
+| Repository | Shape | Product code | Contents |
+|---|---|---|---|
+| **[Original Carrier Lookup](https://github.com/carrierlookup/phone-carrier-lookup-api)** | Realtime | `carrier` | OpenAPI contract, `product.json`, `llms.txt`, examples in 7 languages |
+| **[Bulk carrier tasks](https://github.com/carrierlookup/bulk-carrier-lookup-api)** | Bulk (async) | 1 product | OpenAPI contract, `product.json`, `llms.txt`, examples in 7 languages |
+| [carrierlookup-resources](https://github.com/carrierlookup/carrierlookup-resources) | — | — | Technical notes, guides and announcements |
 
 Every example repository carries a machine-readable `product.json`, an `llms.txt` summary for AI clients, an OpenAPI 3.0 contract, and runnable examples in Python, Node.js, Go, Java, C#, PHP and Shell. All request paths, response fields and limits are taken from the live product pages and the published API documentation.
+
+### Realtime or bulk?
+
+A **realtime** check (`POST /api/v1/check`, or `POST /api/v1/batch-check` for up to 100 identifiers) answers inside the same HTTP response — that is the shape for a signup form, a checkout step or a live lookup. A **bulk task** (`POST /api/v1/bulk-tasks`) takes a `.txt`/`.csv` file of 1,000–100,000 entries, returns a task id immediately, and produces a downloadable result file — that is the shape for list cleaning, campaign preparation and enrichment runs. The two are separate endpoints and are not interchangeable.
 
 ### One key, one balance
 
